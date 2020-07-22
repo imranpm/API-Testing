@@ -1651,7 +1651,7 @@ else{
 
 import com.eviware.soapui.support.XmlHolder 
 
-String CustomerRepository_FilePath="C:/Users/ImranPeenaMajidsab/Desktop/API_casestudy/my-app/customer_data.xls"
+String CustomerRepository_FilePath="C:/Users/ImranPeenaMajidsab/Desktop/API_testing_new/my-app/customer_data.xls"
 File excelFile = new File(CustomerRepository_FilePath)
 
 Workbook wb = Workbook.getWorkbook(excelFile)
@@ -1717,59 +1717,6 @@ def runner=tc.run(null,false)
 
 
 }
-</script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="946a67ff-8388-47e9-87c5-b9b8dd80166e" name="EndtoEndSystemTesting"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="0df35237-af01-419e-860c-1f9ea767be36" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ST Testcase" searchProperties="true"><con:settings/><con:testStep type="groovy" name="To Execute save request" id="64002b28-83e7-401c-bad6-ad1465c804b7"><con:settings/><con:config><script>import com.eviware.soapui.support.XmlHolder
-import jxl.*
-
-def request = testRunner.testCase.testSuite.project.testSuites['EndToEnd_Testing'].testCases['TestCase 1'].getTestStepByName("SaveCoustomer").getPropertyValue("request")
-log.info request
-def holder = new XmlHolder(request)
-
-
-/*
-holder.setNodeValue("//*:email","msdeepa")
-holder.setNodeValue("//*:firstname","deepa")
-holder.setNodeValue("//*:lastname","raghav")
-*/
-
-
-String filepath="C:/Users/ImranPeenaMajidsab/Desktop/FUll_SDET/customer_data.xls"
-File Excel = new File(filepath)
-// This is the excel with contains workbook and workbook contains sheet
-Workbook wb = Workbook.getWorkbook(Excel)
-//i want to fetch the sheet
-Sheet sh=wb.getSheet("customer_data")
-def rowsize = sh.getRows().toInteger()
-def columnsize = sh.getColumns().toInteger()
-
-log.info "The Total number of rows are "+rowsize
-log.info "The Total number of columns are "+columnsize
-
-//i want to print the rows and coulmn? what should i do please suggest
-for(def i=0;i&lt;rowsize;i++)
-{
-	for(def j=0;j&lt;columnsize;j++)
-	{
-		email=sh.getCell(j,i).getContents()
-		log.info email
-	}
-}
-holder.setNodeValue("//*:email","$email")
-def updated = holder.getXml()
-
-testRunner.testCase.testSuite.project.testSuites['EndToEnd_Testing'].testCases['TestCase 1'].getTestStepByName("SaveCoustomer").setPropertyValue("request",updated)
-
-def tc = testRunner.testCase.testSuite.project.testSuites['EndToEnd_Testing'].testCases['TestCase 1']
-def runner = tc.run(null,false)
-def response = testRunner.testCase.testSuite.project.testSuites['EndToEnd_Testing'].testCases['TestCase 1'].getTestStepByName("SaveCoustomer").getPropertyValue("response")
-log.info " all response $response"
-
-def id = new XmlSlurper().parseText(context.response).'**'.find{it.name() == 'id'}?.text()
-//def customerid = new XmlSlurper().parseText(context.response).'**'.find{it.name() == 'customerId'}?.text()
-log.info id
-
-
-
-
 </script></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:testSuite id="4293467f-22ec-49b3-bc2e-8fa625833144" name="DatabaseTesting"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="56fb0176-c553-45c9-b514-c21697d847cb" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="TestCase 1" searchProperties="true"><con:settings/><con:testStep type="jdbc" name="JDBC Request" id="a8de1718-1aea-451b-8880-52378ae5957d" disabled="true"><con:settings/><con:config xsi:type="con:JdbcRequestTestStep" convertColumnNamesToUpperCase="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:driver>com.mysql.jdbc.Driver</con:driver><con:connectionString>jdbc:mysql://localhost:3306/API?user=root&amp;password=imran</con:connectionString><con:query>select * from coustomer;</con:query><con:properties/></con:config></con:testStep><con:testStep type="groovy" name="Groovy Script" id="0f581d7e-6f1a-48f6-809f-56bcf04d9f34"><con:settings/><con:config><script>//let make it work for database
 import groovy.sql.Sql
 
